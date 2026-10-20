@@ -1,24 +1,33 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080914">
+<meta name="theme-color" content="#030408">
 <meta name="description" content="System Level Up — Solo Leveling inspired workout tracker.">
-<title>System Level Up | Tracker V3</title>
+<title>SYSTEM // MONARCH INTERFACE</title>
+
+<!-- Google Fonts for Cyber/Gothic Solo Leveling Vibe -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --bg: #080914;
-  --panel: #101426;
-  --panel2: #151c32;
-  --blue: #55cfff;
-  --purple: #a855f7;
-  --text: #f2f5ff;
-  --muted: #8f9bb9;
-  --green: #54f0ad;
-  --border: rgba(100,170,255,.19);
+  --bg: #030408;
+  --panel: #0a0e1a;
+  --panel-glow: rgba(0, 243, 255, 0.08);
+  --blue: #00f3ff;
+  --blue-dim: rgba(0, 243, 255, 0.2);
+  --purple: #bf00ff;
+  --purple-glow: rgba(191, 0, 255, 0.25);
+  --text: #e2f1f8;
+  --muted: #6b829e;
+  --green: #00ff88;
+  --border: rgba(0, 243, 255, 0.25);
+  --border-active: rgba(0, 243, 255, 0.8);
+  --shadow-blue: 0 0 15px rgba(0, 243, 255, 0.15);
+  --shadow-purple: 0 0 20px rgba(191, 0, 255, 0.2);
 }
 
 * { box-sizing: border-box; }
@@ -26,90 +35,142 @@
 body {
   margin: 0;
   color: var(--text);
-  background:
-    radial-gradient(ellipse at top, #171744 0%, transparent 52%),
-    var(--bg);
-  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+  background-color: var(--bg);
+  background-image: 
+    radial-gradient(circle at 50% 0%, #0d122b 0%, transparent 60%),
+    linear-gradient(to bottom, rgba(3, 4, 8, 0.9), rgba(3, 4, 8, 0.95)),
+    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 243, 255, 0.015) 3px, rgba(0, 243, 255, 0.015) 6px);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 16px;
   min-height: 100vh;
 }
 
 button, input { font: inherit; }
 
+.card {
+  background: linear-gradient(135deg, rgba(10, 14, 26, 0.95) 0%, rgba(5, 7, 15, 0.98) 100%);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px;
+  position: relative;
+  box-shadow: var(--shadow-blue), inset 0 0 20px rgba(0, 243, 255, 0.03);
+  backdrop-filter: blur(10px);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: -1px; left: -1px;
+  width: 8px; height: 8px;
+  border-top: 2px solid var(--blue);
+  border-left: 2px solid var(--blue);
+}
+.card::after {
+  content: "";
+  position: absolute;
+  bottom: -1px; right: -1px;
+  width: 8px; height: 8px;
+  border-bottom: 2px solid var(--blue);
+  border-right: 2px solid var(--blue);
+}
+
 button {
   cursor: pointer;
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 14px;
-  background: #19223b;
+  border-radius: 3px;
+  padding: 10px 16px;
+  background: rgba(0, 243, 255, 0.05);
   color: var(--text);
-  transition: .2s;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
 }
 
 button:hover {
   border-color: var(--blue);
+  background: rgba(0, 243, 255, 0.15);
+  box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
   transform: translateY(-1px);
 }
 
 button:disabled {
-  opacity: .4;
+  opacity: 0.3;
   cursor: not-allowed;
   transform: none;
+  box-shadow: none;
 }
 
 .primary {
-  color: #07101b;
-  background: linear-gradient(100deg, var(--blue), #8d9bff);
-  border: 0;
-  font-weight: 800;
+  color: #030408;
+  background: linear-gradient(90deg, var(--blue), #00a2ff);
+  border: 1px solid var(--blue);
+  font-weight: 700;
+  box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+}
+
+.primary:hover {
+  background: linear-gradient(90deg, #55f7ff, var(--blue));
+  box-shadow: 0 0 25px rgba(0, 243, 255, 0.7);
 }
 
 header {
   max-width: 1100px;
   margin: auto;
-  padding: 28px 20px 12px;
+  padding: 30px 20px 15px;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 243, 255, 0.15);
 }
 
-.logo-placeholder {
-  display: grid;
-  place-items: center;
-  width: 72px;
-  height: 72px;
+.app-logo {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--purple);
+  box-shadow: 0 0 25px rgba(191, 0, 255, 0.5), 0 0 10px rgba(0, 243, 255, 0.3);
   margin-bottom: 14px;
-  border: 1px dashed #6e68ce;
-  border-radius: 18px;
-  color: var(--blue);
-  background: #11162c;
-  font-size: 12px;
-  text-align: center;
 }
 
 h1 {
   margin: 0;
-  font-size: clamp(26px, 5vw, 42px);
-  letter-spacing: 1.5px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(22px, 4vw, 36px);
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
 }
 
-h1 span { color: var(--blue); }
+h1 span { 
+  color: var(--blue); 
+  text-shadow: 0 0 15px var(--blue);
+}
 
 .subtitle {
   color: var(--muted);
-  margin-top: 7px;
+  margin-top: 5px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 .version {
   display: inline-block;
-  color: var(--blue);
-  border: 1px solid var(--border);
-  padding: 4px 9px;
-  border-radius: 7px;
-  font-size: 11px;
-  letter-spacing: 1px;
-  margin-top: 12px;
+  color: var(--purple);
+  border: 1px solid var(--purple);
+  background: rgba(191, 0, 255, 0.05);
+  padding: 3px 10px;
+  border-radius: 3px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-top: 10px;
+  box-shadow: var(--shadow-purple);
 }
 
 main {
   max-width: 1100px;
-  padding: 14px 20px 50px;
+  padding: 20px;
   margin: auto;
 }
 
@@ -119,30 +180,31 @@ main {
   gap: 15px;
 }
 
-.card {
-  background: linear-gradient(145deg, rgba(21,28,50,.97), rgba(12,16,32,.97));
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 19px;
-  min-width: 0;
-  box-shadow: 0 10px 35px rgba(0,0,0,.15);
-}
-
 .col-12 { grid-column: span 12; }
 .col-8 { grid-column: span 8; }
 .col-6 { grid-column: span 6; }
 .col-4 { grid-column: span 4; }
 
 .section-title {
-  font-size: 13px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   color: var(--blue);
   margin: 0 0 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-title::before {
+  content: "■";
+  font-size: 10px;
+  color: var(--blue);
 }
 
 .muted { color: var(--muted); }
-.small { font-size: 12px; }
+.small { font-size: 13px; }
 
 .hero {
   display: flex;
@@ -152,38 +214,45 @@ main {
 }
 
 .level {
-  font-size: 48px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 52px;
   font-weight: 900;
   color: var(--blue);
   line-height: 1;
+  text-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
 }
 
 .rank {
   display: inline-block;
-  margin-top: 9px;
-  color: #e0c5ff;
-  border: 1px solid #7653b4;
-  background: #291942;
-  padding: 5px 11px;
-  border-radius: 8px;
-  font-weight: 800;
-  font-size: 12px;
+  margin-top: 8px;
+  color: #fff;
+  border: 1px solid var(--purple);
+  background: linear-gradient(135deg, rgba(191,0,255,0.3), rgba(41,25,66,0.6));
+  padding: 4px 12px;
+  border-radius: 3px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 2px;
+  box-shadow: var(--shadow-purple);
 }
 
 .progress-track {
   width: 100%;
-  height: 10px;
-  border-radius: 99px;
+  height: 8px;
+  border-radius: 2px;
   overflow: hidden;
-  background: #252c44;
-  margin: 12px 0 7px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(0, 243, 255, 0.2);
+  margin: 14px 0 6px;
 }
 
 .progress-fill {
   height: 100%;
   width: 0;
   background: linear-gradient(90deg, var(--purple), var(--blue));
-  transition: width .35s;
+  box-shadow: 0 0 10px var(--blue);
+  transition: width .35s ease;
 }
 
 .stat-grid {
@@ -193,29 +262,34 @@ main {
 }
 
 .stat {
-  padding: 13px;
-  border-radius: 11px;
-  background: rgba(7,11,25,.65);
-  border: 1px solid var(--border);
+  padding: 12px;
+  border-radius: 4px;
+  background: rgba(3, 4, 8, 0.5);
+  border: 1px solid rgba(0, 243, 255, 0.1);
 }
 
 .stat strong {
   display: block;
-  font-size: 22px;
-  margin-top: 5px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 20px;
+  color: var(--text);
+  margin-top: 4px;
+  text-shadow: 0 0 8px rgba(0,243,255,0.3);
 }
 
 .stat-label {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .quest {
   display: flex;
   align-items: flex-start;
-  gap: 11px;
-  padding: 13px 0;
-  border-bottom: 1px solid rgba(100,170,255,.1);
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 243, 255, 0.1);
 }
 
 .quest:last-child { border-bottom: 0; }
@@ -224,59 +298,71 @@ main {
   accent-color: var(--blue);
   width: 18px;
   height: 18px;
-  margin-top: 3px;
+  margin-top: 2px;
   flex-shrink: 0;
+  cursor: pointer;
 }
 
-.quest label { flex: 1; }
-.quest.done label { text-decoration: line-through; color: var(--muted); }
+.quest label { flex: 1; cursor: pointer; }
+.quest.done label { text-decoration: line-through; color: var(--muted); opacity: 0.6; }
 
-.quest-name { font-weight: 650; }
-.quest-desc { color: var(--muted); font-size: 12px; margin-top: 3px; }
-.xp-tag { color: var(--green); font-size: 12px; white-space: nowrap; }
+.quest-name { font-weight: 600; font-size: 15px; }
+.quest-desc { color: var(--muted); font-size: 12px; margin-top: 2px; }
+.xp-tag { color: var(--green); font-family: 'Orbitron', sans-serif; font-size: 11px; text-shadow: 0 0 8px rgba(0,255,136,0.3); white-space: nowrap; }
 
 .day-row {
   display: grid;
-  grid-template-columns: repeat(7, minmax(0,1fr));
-  gap: 7px;
+  grid-template-columns: repeat(6, minmax(0,1fr));
+  gap: 8px;
 }
 
 .day {
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 4px;
   text-align: center;
-  padding: 10px 3px;
-  background: #0d1325;
-  font-size: 11px;
+  padding: 10px 4px;
+  background: rgba(3, 4, 8, 0.6);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1px;
 }
 
-.day strong { display: block; font-size: 17px; margin: 5px 0; }
-.day.active { border-color: var(--blue); background: #152845; }
-.day.completed { border-color: var(--green); }
-.day.rest { color: var(--muted); }
+.day strong { display: block; font-size: 16px; margin: 6px 0; color: var(--text); }
+.day.active { border-color: var(--blue); background: rgba(0, 243, 255, 0.1); box-shadow: 0 0 12px rgba(0, 243, 255, 0.3); }
+.day.completed { border-color: var(--green); color: var(--green); }
+.day.rest { color: var(--muted); border-color: rgba(255,255,255,0.05); }
 
 .exercise-row {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 10px;
   align-items: center;
-  padding: 13px 0;
-  border-bottom: 1px solid rgba(100,170,255,.1);
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 243, 255, 0.1);
 }
 
 .exercise-row:last-child { border-bottom: 0; }
 
 .exercise-row input {
   width: 76px;
-  background: #080d1b;
-  color: var(--text);
+  background: #030408;
+  color: var(--blue);
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 3px;
   padding: 8px;
+  text-align: center;
 }
 
-.exercise-name { font-weight: 700; }
-.exercise-target { color: var(--muted); font-size: 12px; margin-top: 3px; }
+.exercise-row input:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 10px rgba(0,243,255,0.4);
+}
+
+.exercise-name { font-weight: 600; font-size: 15px; }
+.exercise-target { color: var(--muted); font-size: 12px; margin-top: 2px; }
 
 .button-row {
   display: flex;
@@ -292,26 +378,29 @@ main {
 }
 
 .badge {
-  border: 1px solid var(--border);
-  border-radius: 11px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 4px;
   padding: 12px 6px;
   text-align: center;
-  opacity: .4;
+  opacity: 0.35;
+  background: rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
 }
 
 .badge.unlocked {
   opacity: 1;
-  border-color: #9b76ef;
-  background: #201638;
+  border-color: var(--purple);
+  background: rgba(191, 0, 255, 0.08);
+  box-shadow: var(--shadow-purple);
 }
 
-.badge .emoji { font-size: 25px; display: block; margin-bottom: 6px; }
-.badge strong { font-size: 12px; display: block; }
-.badge small { font-size: 10px; color: var(--muted); }
+.badge .emoji { font-size: 22px; display: block; margin-bottom: 6px; }
+.badge strong { font-size: 11px; display: block; font-family: 'Orbitron', sans-serif; }
+.badge small { font-size: 9px; color: var(--muted); }
 
 .history-item {
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(100,170,255,.1);
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0, 243, 255, 0.08);
   display: flex;
   justify-content: space-between;
   gap: 10px;
@@ -322,58 +411,65 @@ main {
 
 .notice {
   border-left: 3px solid var(--purple);
-  padding: 11px 13px;
-  background: rgba(168,85,247,.08);
-  border-radius: 5px;
-  color: #d9d4f6;
-  font-size: 12px;
-  line-height: 1.6;
+  padding: 12px 14px;
+  background: rgba(191,0,255,0.06);
+  border-radius: 0 4px 4px 0;
+  color: #ebd9f8;
+  font-size: 13px;
+  line-height: 1.5;
+  box-shadow: inset 0 0 10px rgba(191,0,255,0.05);
 }
 
 footer {
   text-align: center;
   color: var(--muted);
-  font-size: 11px;
-  padding: 22px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  padding: 30px 20px;
 }
 
 #toast {
   position: fixed;
-  bottom: 20px;
+  bottom: 25px;
   left: 50%;
   transform: translateX(-50%);
-  background: #1d3450;
+  background: rgba(3, 4, 8, 0.95);
   border: 1px solid var(--blue);
-  padding: 12px 18px;
-  border-radius: 12px;
-  z-index: 10;
+  color: var(--text);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 14px 22px;
+  border-radius: 4px;
+  z-index: 100;
   display: none;
   max-width: 90%;
   text-align: center;
+  box-shadow: 0 0 25px rgba(0, 243, 255, 0.4);
 }
 
 @media (max-width: 720px) {
   .col-8, .col-6, .col-4 { grid-column: span 12; }
   .hero { align-items: flex-start; }
-  .level { font-size: 40px; }
-  .day-row { gap: 4px; }
-  .day { padding: 8px 1px; font-size: 10px; }
-  .day strong { font-size: 14px; }
+  .level { font-size: 42px; }
+  .day-row { gap: 4px; grid-template-columns: repeat(3, minmax(0,1fr)); }
+  .day { padding: 8px 2px; font-size: 9px; }
+  .day strong { font-size: 13px; }
   .achievement-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
-  main { padding: 12px 12px 35px; }
-  header { padding: 22px 12px 8px; }
+  main { padding: 12px; }
 }
 </style>
 </head>
 
 <body>
 <header>
-  <!-- Replace this placeholder with your chosen logo later. -->
-  <div class="logo-placeholder" id="logoPlaceholder">LOGO<br>HERE</div>
-
+  <!-- Monarch Logo Integration (Name your file logo.jpg in your GitHub repo) -->
+  <img src="logo.jpg" alt="Monarch Logo" class="app-logo" id="logoPlaceholder" onerror="this.style.display='none'">
+  
   <h1>SYSTEM <span>LEVEL UP</span></h1>
-  <div class="subtitle">Your body. Your discipline. Your awakening.</div>
-  <div class="version">HUNTER INTERFACE // TRACKER V3.0</div>
+  <div class="subtitle">Awaken Your Hidden Potential</div>
+  <div class="version">[ SYSTEM NOTIFICATION: INTERFACE V3.1 ]</div>
 </header>
 
 <main>
@@ -389,7 +485,7 @@ footer {
         </div>
         <div style="text-align:right">
           <div class="muted small">TOTAL EXPERIENCE</div>
-          <div style="font-size:25px;font-weight:800" id="totalXp">0 XP</div>
+          <div style="font-family:'Orbitron',sans-serif; font-size:24px; font-weight:700; color:var(--blue);" id="totalXp">0 XP</div>
           <div class="muted small" id="nextLevel">100 XP to next level</div>
         </div>
       </div>
@@ -402,7 +498,7 @@ footer {
         <button id="editName">Set Hunter Name</button>
         <button id="editXp">Adjust XP</button>
       </div>
-      <p class="muted small" id="hunterGreeting">Welcome back, Hunter.</p>
+      <p class="muted small" style="margin-top: 14px;" id="hunterGreeting">Welcome back, Hunter.</p>
     </section>
 
     <section class="card col-4">
@@ -413,7 +509,7 @@ footer {
           <strong id="workoutCount">0</strong>
         </div>
         <div class="stat">
-          <span class="stat-label">Current Streak</span>
+          <span class="stat-label">Streak</span>
           <strong id="streak">0 🔥</strong>
         </div>
         <div class="stat">
@@ -428,9 +524,9 @@ footer {
     </section>
 
     <section class="card col-12">
-      <h2 class="section-title">Weekly Training Schedule</h2>
-      <div class="day-row" id="weekDays"></div>
-      <p class="muted small" id="scheduleDescription"></p>
+      <h2 class="section-title">Training Cycle Schedule (2 Days On, 1 Day Rest)</h2>
+      <div class="day-row" id="cycleDays"></div>
+      <p class="muted small" style="margin-top: 10px;" id="scheduleDescription"></p>
     </section>
 
     <section class="card col-6">
@@ -439,19 +535,19 @@ footer {
       <div class="button-row">
         <button class="primary" id="completeQuests">Claim Quest XP</button>
       </div>
-      <p class="muted small">Complete each quest only once per day. Workout XP is separate.</p>
+      <p class="muted small" style="margin-top: 10px;">Complete each quest once per day. Workout XP is separate.</p>
     </section>
 
     <section class="card col-6">
       <h2 class="section-title">Training Mission</h2>
-      <div id="workoutTitle" style="font-size:20px;font-weight:800">Loading...</div>
+      <div id="workoutTitle" style="font-family:'Orbitron',sans-serif; font-size:18px; font-weight:700; color:var(--blue)">Loading...</div>
       <p class="muted small" id="workoutDescription"></p>
       <div id="exerciseList"></div>
       <div class="button-row">
         <button class="primary" id="completeWorkout">Complete Workout</button>
         <button id="resetInputs">Reset Inputs</button>
       </div>
-      <p class="muted small">Enter the reps you actually completed. Keep good form and rest when needed.</p>
+      <p class="muted small" style="margin-top: 10px;">Enter your completed reps. Maintain form parameters.</p>
     </section>
 
     <section class="card col-6">
@@ -462,16 +558,16 @@ footer {
         <div class="stat"><span class="stat-label">Vitality</span><strong id="vitality">1</strong></div>
         <div class="stat"><span class="stat-label">Consistency</span><strong id="consistency">1</strong></div>
       </div>
-      <p class="muted small">Attributes rise from completed training. These are game-style indicators, not medical measurements.</p>
+      <p class="muted small" style="margin-top: 10px;">Attributes rise directly from physical training milestones.</p>
     </section>
 
     <section class="card col-6">
-      <h2 class="section-title">Weekly Boss Quest</h2>
-      <div style="font-size:21px;font-weight:800">The Discipline Gate</div>
-      <p class="muted small">Complete four training sessions during this Monday–Sunday week to clear the boss quest.</p>
+      <h2 class="section-title">Cycle Boss Quest</h2>
+      <div style="font-family:'Orbitron',sans-serif; font-size:18px; font-weight:700">The Discipline Gate</div>
+      <p class="muted small">Complete 4 training sessions in the current cycle to clear the gate.</p>
       <div class="progress-track"><div class="progress-fill" id="bossBar"></div></div>
       <div class="muted small" id="bossProgress">0 / 4 workouts</div>
-      <p id="bossStatus" style="color:var(--purple);font-weight:800">BOSS ACTIVE</p>
+      <p id="bossStatus" style="color:var(--purple);font-family:'Orbitron',sans-serif; font-size:11px; letter-spacing:1px; font-weight:700; margin-top:8px;">BOSS ACTIVE</p>
     </section>
 
     <section class="card col-6">
@@ -480,30 +576,28 @@ footer {
     </section>
 
     <section class="card col-6">
-      <h2 class="section-title">Recent Activity</h2>
+      <h2 class="section-title">Recent Activity Log</h2>
       <div id="history"></div>
     </section>
 
     <section class="card col-12">
-      <h2 class="section-title">Save Data & System Settings</h2>
+      <h2 class="section-title">System Settings & Data Backup</h2>
       <div class="notice">
-        Progress is saved in this browser on this device. Export a backup regularly.
-        Clearing browser data or switching browsers may remove access to your saved progress.
+        [WARNING] Progress is stored locally on this browser interface. Export regular backups to prevent data loss.
       </div>
-      <div class="button-row">
+      <div class="button-row" style="margin-top: 14px;">
         <button class="primary" id="exportData">Export Backup</button>
         <button id="importButton">Import Backup</button>
         <input type="file" id="importFile" accept=".json,application/json" hidden>
-        <button id="resetAll">Reset All Progress</button>
+        <button id="resetAll">Reset Progress</button>
       </div>
-      <p class="muted small">V3 uses its own save record. Your V2 data is not automatically imported.</p>
     </section>
 
   </div>
 </main>
 
 <footer>
-  SYSTEM LEVEL UP • TRACKER V3.0 • ARISE, HUNTER.
+  SYSTEM LEVEL UP // MONARCH INTERFACE // ARISE, HUNTER.
 </footer>
 
 <div id="toast" role="status" aria-live="polite"></div>
@@ -511,59 +605,63 @@ footer {
 <script>
 "use strict";
 
-const STORAGE_KEY = "systemLevelUpTrackerV3";
+const STORAGE_KEY = "systemLevelUpTrackerV3_1";
 
-const DAYS = [
-  { name: "MON", title: "Push + Pull", desc: "Upper-body training", type: "workout",
+const CYCLE_PATTERN = [
+  { 
+    title: "Push + Pull", 
+    desc: "Upper-body training protocol", 
+    type: "workout",
     exercises: [
       { name: "Push-ups", target: "2 sets × 20 reps", reps: 40, key: "pushups" },
       { name: "Pull-ups", target: "3 sets × 8 reps", reps: 24, key: "pullups" }
     ]
   },
-  { name: "TUE", title: "Diamond + Legs", desc: "Triceps, legs and optional core", type: "workout",
+  { 
+    title: "Diamond + Legs", 
+    desc: "Triceps, legs and core protocol", 
+    type: "workout",
     exercises: [
       { name: "Diamond push-ups", target: "2 sets × 10 reps", reps: 20, key: "diamond" },
       { name: "Bodyweight squats", target: "2 sets × 10 reps", reps: 20, key: "squats" },
       { name: "Plank", target: "Optional · 30 seconds", reps: 30, key: "plank", optional: true }
     ]
   },
-  { name: "WED", title: "Recovery Day", desc: "Rest, mobility and adequate nutrition", type: "rest" },
-  { name: "THU", title: "Push + Pull", desc: "Upper-body training", type: "workout",
-    exercises: [
-      { name: "Push-ups", target: "2 sets × 20 reps", reps: 40, key: "pushups" },
-      { name: "Pull-ups", target: "3 sets × 8 reps", reps: 24, key: "pullups" }
-    ]
-  },
-  { name: "FRI", title: "Diamond + Legs", desc: "Triceps, legs and optional core", type: "workout",
-    exercises: [
-      { name: "Diamond push-ups", target: "2 sets × 10 reps", reps: 20, key: "diamond" },
-      { name: "Bodyweight squats", target: "2 sets × 10 reps", reps: 20, key: "squats" },
-      { name: "Plank", target: "Optional · 30 seconds", reps: 30, key: "plank", optional: true }
-    ]
-  },
-  { name: "SAT", title: "Recovery Day", desc: "Rest and recover", type: "rest" },
-  { name: "SUN", title: "Weekly Review", desc: "Review progress and prepare for next week", type: "review" }
+  { 
+    title: "Recovery Day", 
+    desc: "Rest, mobility and physical restoration", 
+    type: "rest" 
+  }
 ];
 
 const QUESTS = [
   { id: "training", name: "Complete Today's Mission", desc: "Finish the assigned workout if today is a training day.", xp: 20, workoutOnly: true },
-  { id: "water", name: "Recovery Protocol", desc: "Drink water regularly throughout the day.", xp: 5 },
-  { id: "nutrition", name: "Fuel the Hunter", desc: "Eat balanced meals to support recovery.", xp: 5 },
-  { id: "sleep", name: "Restoration", desc: "Aim for a consistent, sufficient night's sleep.", xp: 5 }
+  { id: "water", name: "Recovery Protocol", desc: "Maintain optimal hydration levels throughout the day.", xp: 5 },
+  { id: "nutrition", name: "Fuel the Hunter", desc: "Consume balanced nutrition to support muscle synthesis.", xp: 5 },
+  { id: "sleep", name: "Restoration", desc: "Secure sufficient deep sleep for full recovery.", xp: 5 }
 ];
 
 const ACHIEVEMENTS = [
   { id: "first", icon: "⚔️", name: "First Blood", desc: "1 workout", test: s => s.workouts.length >= 1 },
-  { id: "five", icon: "🔥", name: "Getting Stronger", desc: "5 workouts", test: s => s.workouts.length >= 5 },
-  { id: "ten", icon: "👑", name: "Rising Hunter", desc: "10 workouts", test: s => s.workouts.length >= 10 },
-  { id: "twentyfive", icon: "🌑", name: "Shadow Awakened", desc: "25 workouts", test: s => s.workouts.length >= 25 },
+  { id: "five", icon: "🔥", name: "Awakened", desc: "5 workouts", test: s => s.workouts.length >= 5 },
+  { id: "ten", icon: "👑", name: "Monarch's Will", desc: "10 workouts", test: s => s.workouts.length >= 10 },
+  { id: "twentyfive", icon: "🌑", name: "Shadow Army", desc: "25 workouts", test: s => s.workouts.length >= 25 },
   { id: "streak3", icon: "📅", name: "Consistent", desc: "3-day streak", test: s => s.bestStreak >= 3 },
-  { id: "rankD", icon: "🛡️", name: "D-Rank", desc: "Reach level 5", test: s => levelFor(s.xp) >= 5 }
+  { id: "rankD", icon: "🛡️", name: "D-Rank Gate", desc: "Reach level 5", test: s => levelFor(s.xp) >= 5 }
 ];
 
+function localDate(date = new Date()) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
 function freshState() {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
   return {
-    version: 3,
+    version: 3.1,
     name: "Hunter",
     xp: 0,
     workouts: [],
@@ -572,6 +670,7 @@ function freshState() {
     attributes: { strength: 1, endurance: 1, vitality: 1, consistency: 1 },
     history: [],
     bossClaims: [],
+    startDate: localDate(tomorrow),
     createdAt: new Date().toISOString()
   };
 }
@@ -581,7 +680,7 @@ function loadState() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return freshState();
     const parsed = JSON.parse(raw);
-    if (parsed.version !== 3 || !Array.isArray(parsed.workouts)) return freshState();
+    if (!parsed.version || parsed.version < 3 || !Array.isArray(parsed.workouts)) return freshState();
     return {
       ...freshState(),
       ...parsed,
@@ -589,7 +688,8 @@ function loadState() {
       workouts: parsed.workouts,
       history: Array.isArray(parsed.history) ? parsed.history : [],
       questClaims: parsed.questClaims || {},
-      bossClaims: Array.isArray(parsed.bossClaims) ? parsed.bossClaims : []
+      bossClaims: Array.isArray(parsed.bossClaims) ? parsed.bossClaims : [],
+      startDate: parsed.startDate || freshState().startDate
     };
   } catch (error) {
     console.error("Unable to load saved progress", error);
@@ -604,31 +704,29 @@ function save() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   } catch (error) {
-    showToast("Could not save data. Export a backup and check browser storage.");
+    showToast("Could not save data. Check browser storage permissions.");
   }
 }
 
-function localDate(date = new Date()) {
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, "0");
-  const d = String(date.getDate()).padStart(2, "0");
-  return `${y}-${m}-${d}`;
+function dateDiffInDays(date1Str, date2Str) {
+  const d1 = new Date(date1Str);
+  const d2 = new Date(date2Str);
+  const diffTime = d2.getTime() - d1.getTime();
+  return Math.floor(diffTime / (1000 * 60 * 60 * 24));
 }
 
-function dateFromKey(key) {
-  const [y,m,d] = key.split("-").map(Number);
-  return new Date(y, m - 1, d);
+function getCurrentDayIndex() {
+  const todayStr = localDate();
+  const diff = dateDiffInDays(state.startDate, todayStr);
+  if (diff < 0) return 0;
+  return diff % 3;
 }
 
-function mondayKey(date = new Date()) {
-  const copy = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  const day = (copy.getDay() + 6) % 7;
-  copy.setDate(copy.getDate() - day);
-  return localDate(copy);
-}
-
-function dayIndex(date = new Date()) {
-  return (date.getDay() + 6) % 7;
+function getCycleDayNumber() {
+  const todayStr = localDate();
+  const diff = dateDiffInDays(state.startDate, todayStr);
+  if (diff < 0) return 1;
+  return diff + 1;
 }
 
 function levelFor(xp) {
@@ -666,14 +764,6 @@ function addHistory(message) {
   state.history = state.history.slice(0, 40);
 }
 
-function addXp(amount, reason) {
-  const before = levelFor(state.xp);
-  state.xp = Math.max(0, state.xp + amount);
-  const after = levelFor(state.xp);
-  if (after > before) showToast(`LEVEL UP! You reached Level ${after}.`);
-  else showToast(reason);
-}
-
 function workoutDateSet() {
   return new Set(state.workouts.map(w => w.date));
 }
@@ -698,14 +788,6 @@ function calculateStreak() {
   return count;
 }
 
-function weekWorkouts() {
-  const start = mondayKey();
-  const endDate = dateFromKey(start);
-  endDate.setDate(endDate.getDate() + 7);
-  const end = localDate(endDate);
-  return state.workouts.filter(w => w.date >= start && w.date < end);
-}
-
 function renderStatus() {
   const level = levelFor(state.xp);
   const currentLevelXp = state.xp % 100;
@@ -718,7 +800,7 @@ function renderStatus() {
   document.getElementById("nextLevel").textContent = `${100-currentLevelXp} XP to next level`;
   document.getElementById("xpBar").style.width = `${currentLevelXp}%`;
   document.getElementById("xpProgress").textContent = `${currentLevelXp} / 100 XP`;
-  document.getElementById("hunterGreeting").textContent = `Welcome back, ${state.name}. Your next quest awaits.`;
+  document.getElementById("hunterGreeting").textContent = `Welcome back, ${state.name}. Your awakening deepens.`;
   document.getElementById("workoutCount").textContent = state.workouts.length;
   document.getElementById("streak").textContent = `${streak} 🔥`;
   document.getElementById("bestStreak").textContent = state.bestStreak;
@@ -732,41 +814,51 @@ function renderStatus() {
 }
 
 function renderSchedule() {
-  const idx = dayIndex();
+  const currentDayNum = getCycleDayNumber();
+  const root = document.getElementById("cycleDays");
   const dates = workoutDateSet();
-  const monday = dateFromKey(mondayKey());
-  const root = document.getElementById("weekDays");
 
-  root.innerHTML = DAYS.map((day, i) => {
-    const d = new Date(monday);
-    d.setDate(d.getDate() + i);
-    const key = localDate(d);
-    const completed = dates.has(key);
+  let html = "";
+  const baseDayNum = Math.max(1, currentDayNum - 2);
+  
+  for (let i = 0; i < 6; i++) {
+    const dNum = baseDayNum + i;
+    const patternIdx = (dNum - 1) % 3;
+    const dayData = CYCLE_PATTERN[patternIdx];
+    
+    const targetDate = new Date(state.startDate);
+    targetDate.setDate(targetDate.getDate() + (dNum - 1));
+    const dateKey = localDate(targetDate);
+    const completed = dates.has(dateKey);
+
+    const isToday = dNum === currentDayNum;
     const cls = [
       "day",
-      i === idx ? "active" : "",
+      isToday ? "active" : "",
       completed ? "completed" : "",
-      day.type === "rest" ? "rest" : ""
+      dayData.type === "rest" ? "rest" : ""
     ].filter(Boolean).join(" ");
 
-    const mark = completed ? "✓" : day.type === "rest" ? "REST" : day.type === "review" ? "★" : "•";
+    const mark = completed ? "✓" : dayData.type === "rest" ? "REST" : "•";
 
-    return `<div class="${cls}">
-      ${day.name}
+    html += `<div class="${cls}">
+      DAY ${dNum}
       <strong>${mark}</strong>
-      <span>${d.getDate()}/${d.getMonth()+1}</span>
+      <span style="font-size:9px; color:var(--muted);">${dayData.title.split(" ")[0]}</span>
     </div>`;
-  }).join("");
+  }
 
+  root.innerHTML = html;
+  const activeDay = CYCLE_PATTERN[getCurrentDayIndex()];
   document.getElementById("scheduleDescription").textContent =
-    `Today: ${DAYS[idx].title} — ${DAYS[idx].desc}. Completed days are marked with ✓.`;
+    `Active Cycle Vector: Day ${currentDayNum} — ${activeDay.title} (${activeDay.desc}).`;
 }
 
 function renderQuests() {
   const today = localDate();
   const claimed = state.questClaims[today] || [];
-  const idx = dayIndex();
-  const trainingToday = DAYS[idx].type === "workout";
+  const activeDay = CYCLE_PATTERN[getCurrentDayIndex()];
+  const trainingToday = activeDay.type === "workout";
 
   document.getElementById("dailyQuests").innerHTML = QUESTS.map(q => {
     const unavailable = q.workoutOnly && !trainingToday;
@@ -777,7 +869,7 @@ function renderQuests() {
       <input type="checkbox" id="quest-${q.id}" ${checked ? "checked" : ""} ${disabled ? "disabled" : ""}>
       <label for="quest-${q.id}">
         <div class="quest-name">${escapeHtml(q.name)}</div>
-        <div class="quest-desc">${unavailable ? "Available on scheduled training days." : escapeHtml(q.desc)}</div>
+        <div class="quest-desc">${unavailable ? "Available on scheduled training windows." : escapeHtml(q.desc)}</div>
       </label>
       <span class="xp-tag">+${q.xp} XP</span>
     </div>`;
@@ -785,26 +877,23 @@ function renderQuests() {
 }
 
 function renderWorkout() {
-  const idx = dayIndex();
-  const day = DAYS[idx];
+  const activeDay = CYCLE_PATTERN[getCurrentDayIndex()];
   const alreadyDone = state.workouts.some(w => w.date === localDate());
 
-  document.getElementById("workoutTitle").textContent = day.title;
-  document.getElementById("workoutDescription").textContent = day.desc;
+  document.getElementById("workoutTitle").textContent = `DAY ${getCycleDayNumber()}: ${activeDay.title}`;
+  document.getElementById("workoutDescription").textContent = activeDay.desc;
 
   const list = document.getElementById("exerciseList");
   const completeButton = document.getElementById("completeWorkout");
 
-  if (day.type !== "workout") {
-    list.innerHTML = `<div class="notice">${day.type === "rest"
-      ? "Recovery is part of progress. Rest, eat well and get enough sleep."
-      : "Review your weekly history, check your progress and prepare for the next training week."}</div>`;
+  if (activeDay.type !== "workout") {
+    list.innerHTML = `<div class="notice">Recovery protocol active. Rest, consume balanced nutrition, and prepare for the next gate.</div>`;
     completeButton.disabled = true;
-    completeButton.textContent = "No Workout Scheduled";
+    completeButton.textContent = "Rest Day - Gate Closed";
     return;
   }
 
-  list.innerHTML = day.exercises.map(ex => `
+  list.innerHTML = activeDay.exercises.map(ex => `
     <div class="exercise-row">
       <div>
         <div class="exercise-name">${escapeHtml(ex.name)} ${ex.optional ? "(Optional)" : ""}</div>
@@ -816,22 +905,21 @@ function renderWorkout() {
   `).join("");
 
   completeButton.disabled = alreadyDone;
-  completeButton.textContent = alreadyDone ? "Today's Workout Completed ✓" : "Complete Workout";
+  completeButton.textContent = alreadyDone ? "Mission Cleared ✓" : "Complete Mission";
 }
 
 function renderBoss() {
-  const completed = weekWorkouts().length;
-  const claimed = state.bossClaims.includes(mondayKey());
-  document.getElementById("bossBar").style.width = `${Math.min(100, completed / 4 * 100)}%`;
-  document.getElementById("bossProgress").textContent = `${Math.min(completed,4)} / 4 workouts`;
-  document.getElementById("bossStatus").textContent =
-    claimed ? "BOSS DEFEATED ✓" : completed >= 4 ? "BOSS READY TO CLAIM" : "BOSS ACTIVE";
-  document.getElementById("bossStatus").style.color = claimed ? "var(--green)" : "var(--purple)";
+  const totalWorkouts = state.workouts.length;
+  const bossTarget = 4;
+  
+  document.getElementById("bossBar").style.width = `${Math.min(100, (totalWorkouts % 4) / bossTarget * 100)}%`;
+  document.getElementById("bossProgress").textContent = `${totalWorkouts % 4} / 4 workouts`;
+  document.getElementById("bossStatus").textContent = totalWorkouts > 0 && totalWorkouts % 4 === 0 ? "GATE READY TO CLAIM" : "BOSS ACTIVE";
 
-  if (completed >= 4 && !claimed) {
-    state.bossClaims.push(mondayKey());
-    addXp(50, "Weekly Boss defeated! +50 XP");
-    addHistory("Weekly Boss Quest completed (+50 XP)");
+  if (totalWorkouts > 0 && totalWorkouts % 4 === 0 && !state.bossClaims.includes(totalWorkouts)) {
+    state.bossClaims.push(totalWorkouts);
+    addXp(50, "Discipline Gate Cleared! +50 XP");
+    addHistory("Discipline Gate Cleared (+50 XP)");
     save();
   }
 }
@@ -843,7 +931,7 @@ function renderAchievements() {
       <span class="emoji">${a.icon}</span>
       <strong>${escapeHtml(a.name)}</strong>
       <small>${escapeHtml(a.desc)}</small>
-      <small>${unlocked ? "UNLOCKED" : "LOCKED"}</small>
+      <small style="display:block; margin-top:2px;">${unlocked ? "UNLOCKED" : "LOCKED"}</small>
     </div>`;
   }).join("");
 }
@@ -851,7 +939,7 @@ function renderAchievements() {
 function renderHistory() {
   const root = document.getElementById("history");
   if (!state.history.length) {
-    root.innerHTML = '<p class="muted small">No activity yet. Complete your first mission to begin your history.</p>';
+    root.innerHTML = '<p class="muted small">No logged telemetry yet. Complete your first mission.</p>';
     return;
   }
 
@@ -877,15 +965,15 @@ function renderAll() {
 document.getElementById("completeQuests").addEventListener("click", () => {
   const today = localDate();
   const already = state.questClaims[today] || [];
-  const idx = dayIndex();
-  const trainingToday = DAYS[idx].type === "workout";
+  const activeDay = CYCLE_PATTERN[getCurrentDayIndex()];
+  const trainingToday = activeDay.type === "workout";
   const chosen = QUESTS.filter(q => {
     const el = document.getElementById(`quest-${q.id}`);
     return el && el.checked && !already.includes(q.id) && (!q.workoutOnly || trainingToday);
   });
 
   if (!chosen.length) {
-    showToast("Select an available quest first.");
+    showToast("Select an available quest objective first.");
     return;
   }
 
@@ -896,35 +984,34 @@ document.getElementById("completeQuests").addEventListener("click", () => {
   addHistory(`Daily quests claimed (+${earned} XP)`);
   save();
   renderAll();
-  showToast(`Quest rewards claimed: +${earned} XP`);
+  showToast(`Quest rewards acquired: +${earned} XP`);
 });
 
 document.getElementById("completeWorkout").addEventListener("click", () => {
-  const idx = dayIndex();
-  const day = DAYS[idx];
-  if (day.type !== "workout") return;
+  const activeDay = CYCLE_PATTERN[getCurrentDayIndex()];
+  if (activeDay.type !== "workout") return;
 
   const today = localDate();
   if (state.workouts.some(w => w.date === today)) {
-    showToast("Today's workout has already been recorded.");
+    showToast("Mission already logged for today.");
     return;
   }
 
-  const exercises = day.exercises.map(ex => {
+  const exercises = activeDay.exercises.map(ex => {
     const input = document.getElementById(`reps-${ex.key}`);
     const value = Number(input ? input.value : 0);
     return { name: ex.name, key: ex.key, reps: Number.isFinite(value) ? Math.max(0, Math.min(1000, Math.floor(value))) : 0, optional: !!ex.optional };
   });
 
   if (exercises.some(ex => !ex.optional && ex.reps <= 0)) {
-    showToast("Enter the reps you completed for each required exercise.");
+    showToast("Input valid completed reps for all required exercises.");
     return;
   }
 
   const earned = 40;
   const record = {
     date: today,
-    title: day.title,
+    title: activeDay.title,
     exercises,
     xp: earned,
     timestamp: new Date().toISOString()
@@ -939,15 +1026,15 @@ document.getElementById("completeWorkout").addEventListener("click", () => {
 
   const streak = calculateStreak();
   state.bestStreak = Math.max(state.bestStreak, streak);
-  addHistory(`${day.title} completed (+${earned} XP)`);
+  addHistory(`${activeDay.title} cleared (+${earned} XP)`);
   save();
   renderAll();
-  showToast(`Workout complete! +${earned} XP. ARISE!`);
+  showToast(`Mission Complete! +${earned} XP. ARISE!`);
 });
 
 document.getElementById("resetInputs").addEventListener("click", () => {
   renderWorkout();
-  showToast("Workout inputs reset.");
+  showToast("Mission parameters reset.");
 });
 
 document.getElementById("editName").addEventListener("click", () => {
@@ -955,7 +1042,7 @@ document.getElementById("editName").addEventListener("click", () => {
   if (name === null) return;
   const cleaned = name.trim().slice(0,40);
   if (!cleaned) {
-    showToast("Hunter name cannot be empty.");
+    showToast("Hunter designation cannot be blank.");
     return;
   }
   state.name = cleaned;
@@ -964,18 +1051,18 @@ document.getElementById("editName").addEventListener("click", () => {
 });
 
 document.getElementById("editXp").addEventListener("click", () => {
-  const input = prompt("Enter the XP adjustment (e.g. 50 or -20):", "50");
+  const input = prompt("Enter XP adjustment metric (e.g., 50 or -20):", "50");
   if (input === null) return;
   const amount = Number(input);
   if (!Number.isInteger(amount) || !Number.isFinite(amount) || amount < -100000 || amount > 100000) {
-    showToast("Enter a whole number between -100000 and 100000.");
+    showToast("Enter a valid integer value.");
     return;
   }
   state.xp = Math.max(0, state.xp + amount);
-  addHistory(`XP adjusted (${amount >= 0 ? "+" : ""}${amount} XP)`);
+  addHistory(`XP modified (${amount >= 0 ? "+" : ""}${amount} XP)`);
   save();
   renderAll();
-  showToast("XP updated.");
+  showToast("System XP calibrated.");
 });
 
 document.getElementById("exportData").addEventListener("click", () => {
@@ -983,12 +1070,12 @@ document.getElementById("exportData").addEventListener("click", () => {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `system-level-up-backup-${localDate()}.json`;
+  a.download = `monarch-interface-backup-${localDate()}.json`;
   document.body.appendChild(a);
   a.click();
   a.remove();
   URL.revokeObjectURL(url);
-  showToast("Backup exported.");
+  showToast("Backup exported securely.");
 });
 
 document.getElementById("importButton").addEventListener("click", () => {
@@ -1001,11 +1088,11 @@ document.getElementById("importFile").addEventListener("change", async event => 
 
   try {
     const parsed = JSON.parse(await file.text());
-    if (parsed.version !== 3 || !Array.isArray(parsed.workouts) || typeof parsed.xp !== "number") {
-      throw new Error("This is not a valid V3 backup.");
+    if (!Array.isArray(parsed.workouts) || typeof parsed.xp !== "number") {
+      throw new Error("Invalid system backup configuration.");
     }
 
-    if (!confirm("Import this backup and replace your current V3 progress? Export your current data first if needed.")) return;
+    if (!confirm("Overwrite current system telemetry with backup file?")) return;
 
     state = {
       ...freshState(),
@@ -1014,29 +1101,30 @@ document.getElementById("importFile").addEventListener("change", async event => 
       workouts: parsed.workouts,
       history: Array.isArray(parsed.history) ? parsed.history : [],
       questClaims: parsed.questClaims || {},
-      bossClaims: Array.isArray(parsed.bossClaims) ? parsed.bossClaims : []
+      bossClaims: Array.isArray(parsed.bossClaims) ? parsed.bossClaims : [],
+      startDate: parsed.startDate || freshState().startDate
     };
 
     save();
     renderAll();
-    showToast("Backup imported successfully.");
+    showToast("System telemetry restored.");
   } catch (error) {
-    alert("Could not import backup: " + error.message);
+    alert("Import failed: " + error.message);
   } finally {
     event.target.value = "";
   }
 });
 
 document.getElementById("resetAll").addEventListener("click", () => {
-  const answer = prompt('This will erase V3 progress in this browser. Type RESET to confirm:');
+  const answer = prompt('This will completely purge telemetry data. Type RESET to confirm:');
   if (answer !== "RESET") {
-    showToast("Reset cancelled.");
+    showToast("Purge cancelled.");
     return;
   }
   state = freshState();
   save();
   renderAll();
-  showToast("V3 progress reset.");
+  showToast("System telemetry purged.");
 });
 
 renderAll();
@@ -1044,4 +1132,3 @@ save();
 </script>
 </body>
 </html>
-```
