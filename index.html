@@ -121,6 +121,9 @@ header {
   padding: 30px 20px 15px;
   text-align: center;
   border-bottom: 1px solid rgba(0, 243, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .app-logo {
@@ -152,20 +155,6 @@ h1 span {
   font-size: 14px;
   letter-spacing: 2px;
   text-transform: uppercase;
-}
-
-.version {
-  display: inline-block;
-  color: var(--purple);
-  border: 1px solid var(--purple);
-  background: rgba(191, 0, 255, 0.05);
-  padding: 3px 10px;
-  border-radius: 3px;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 10px;
-  letter-spacing: 2px;
-  margin-top: 10px;
-  box-shadow: var(--shadow-purple);
 }
 
 main {
@@ -464,11 +453,11 @@ footer {
 
 <body>
 <header>
+  <!-- Logo placed above SYSTEM LEVEL UP title -->
   <img src="logo.jpg" alt="Monarch Logo" class="app-logo" id="logoPlaceholder" onerror="this.style.display='none'">
   
   <h1>SYSTEM <span>LEVEL UP</span></h1>
   <div class="subtitle">Awaken Your Hidden Potential</div>
-  <div class="version">[ SYSTEM NOTIFICATION: INTERFACE V3.3 ]</div>
 </header>
 
 <main>
