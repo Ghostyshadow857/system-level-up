@@ -1,164 +1,1047 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#070b14">
-<link rel="manifest" href="manifest.json">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<title>SYSTEM: LEVEL UP — Hunter Interface</title>
-<style>
-*{box-sizing:border-box}body{margin:0;background:#050812;color:#e9f2ff;font-family:system-ui,-apple-system,Segoe UI,sans-serif}
-.app{max-width:520px;margin:auto;padding:18px 16px 40px}.glow{color:#55b8ff;text-shadow:0 0 16px #168cff}
-header{display:flex;justify-content:space-between;align-items:center}.sys{font-size:12px;letter-spacing:3px;color:#65c5ff}
-h1{margin:4px 0 18px;font-size:28px}.card{background:linear-gradient(145deg,#0b1220,#070b14);border:1px solid #193454;border-radius:16px;padding:16px;margin:12px 0;box-shadow:0 0 22px #06101d}
-.row{display:flex;justify-content:space-between;align-items:center}.level{font-size:38px;font-weight:800}.rank{font-size:18px;color:#8bd5ff}.bar{height:10px;background:#101b2b;border-radius:10px;overflow:hidden;margin:10px 0}.fill{height:100%;background:linear-gradient(90deg,#268cff,#7bd8ff);width:0%;transition:.3s}.muted{color:#7890a8;font-size:13px}.quest{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #142238}.quest:last-child{border:0}.quest input{width:21px;height:21px;accent-color:#3ba8ff}.done{text-decoration:line-through;color:#60758c}.xp{color:#6cc8ff;font-weight:700}.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px}.stat{padding:12px;background:#0a1422;border-radius:11px}.stat b{display:block;font-size:18px;margin-top:3px}.btn{border:0;border-radius:11px;padding:11px 14px;background:#10233a;color:#bfe7ff;font-weight:700}.danger{color:#ff8491}.center{text-align:center}.notice{padding:10px;border-radius:10px;background:#0b1d2d;color:#8fd8ff;font-size:13px}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080914">
+<meta name="description" content="System Level Up — Solo Leveling inspired workout tracker.">
+<title>System Level Up | Tracker V3</title>
 
-.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:12px 0}.tab{cursor:pointer;border:1px solid #173554;background:#081321;color:#7ea0bb;border-radius:10px;padding:10px 6px;font-weight:800}.tab.active{color:#bdeaff;background:#0d2740;box-shadow:0 0 15px #0b6ca8}.panel{display:none}.panel.active{display:block}.big{font-size:48px;font-weight:900}.mini{font-size:11px;letter-spacing:2px;color:#5e91b1}.achievement{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid #142238}.achievement:last-child{border:0}.locked{opacity:.4}.boss{border-color:#55304a;background:linear-gradient(145deg,#170d18,#090b14)}.boss b{color:#ff91bd}.pulse{animation:pulse 1.1s ease-in-out infinite}@keyframes pulse{50%{transform:scale(1.03);opacity:.8}}.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#102a40;border:1px solid #3b9bd0;padding:12px 18px;border-radius:12px;box-shadow:0 0 25px #168cff88;z-index:10;display:none}.smallbtn{font-size:12px;padding:8px 10px}.record{font-size:13px;color:#9fc1d8}
-</style></head>
-<body><main class="app">
+<style>
+:root {
+  --bg: #080914;
+  --panel: #101426;
+  --panel2: #151c32;
+  --blue: #55cfff;
+  --purple: #a855f7;
+  --text: #f2f5ff;
+  --muted: #8f9bb9;
+  --green: #54f0ad;
+  --border: rgba(100,170,255,.19);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at top, #171744 0%, transparent 52%),
+    var(--bg);
+  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+  min-height: 100vh;
+}
+
+button, input { font: inherit; }
+
+button {
+  cursor: pointer;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: #19223b;
+  color: var(--text);
+  transition: .2s;
+}
+
+button:hover {
+  border-color: var(--blue);
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.primary {
+  color: #07101b;
+  background: linear-gradient(100deg, var(--blue), #8d9bff);
+  border: 0;
+  font-weight: 800;
+}
+
+header {
+  max-width: 1100px;
+  margin: auto;
+  padding: 28px 20px 12px;
+}
+
+.logo-placeholder {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin-bottom: 14px;
+  border: 1px dashed #6e68ce;
+  border-radius: 18px;
+  color: var(--blue);
+  background: #11162c;
+  font-size: 12px;
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(26px, 5vw, 42px);
+  letter-spacing: 1.5px;
+}
+
+h1 span { color: var(--blue); }
+
+.subtitle {
+  color: var(--muted);
+  margin-top: 7px;
+}
+
+.version {
+  display: inline-block;
+  color: var(--blue);
+  border: 1px solid var(--border);
+  padding: 4px 9px;
+  border-radius: 7px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  margin-top: 12px;
+}
+
+main {
+  max-width: 1100px;
+  padding: 14px 20px 50px;
+  margin: auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.card {
+  background: linear-gradient(145deg, rgba(21,28,50,.97), rgba(12,16,32,.97));
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 19px;
+  min-width: 0;
+  box-shadow: 0 10px 35px rgba(0,0,0,.15);
+}
+
+.col-12 { grid-column: span 12; }
+.col-8 { grid-column: span 8; }
+.col-6 { grid-column: span 6; }
+.col-4 { grid-column: span 4; }
+
+.section-title {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--blue);
+  margin: 0 0 15px;
+}
+
+.muted { color: var(--muted); }
+.small { font-size: 12px; }
+
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.level {
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--blue);
+  line-height: 1;
+}
+
+.rank {
+  display: inline-block;
+  margin-top: 9px;
+  color: #e0c5ff;
+  border: 1px solid #7653b4;
+  background: #291942;
+  padding: 5px 11px;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.progress-track {
+  width: 100%;
+  height: 10px;
+  border-radius: 99px;
+  overflow: hidden;
+  background: #252c44;
+  margin: 12px 0 7px;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--purple), var(--blue));
+  transition: width .35s;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 10px;
+}
+
+.stat {
+  padding: 13px;
+  border-radius: 11px;
+  background: rgba(7,11,25,.65);
+  border: 1px solid var(--border);
+}
+
+.stat strong {
+  display: block;
+  font-size: 22px;
+  margin-top: 5px;
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.quest {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(100,170,255,.1);
+}
+
+.quest:last-child { border-bottom: 0; }
+
+.quest input {
+  accent-color: var(--blue);
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.quest label { flex: 1; }
+.quest.done label { text-decoration: line-through; color: var(--muted); }
+
+.quest-name { font-weight: 650; }
+.quest-desc { color: var(--muted); font-size: 12px; margin-top: 3px; }
+.xp-tag { color: var(--green); font-size: 12px; white-space: nowrap; }
+
+.day-row {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0,1fr));
+  gap: 7px;
+}
+
+.day {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px 3px;
+  background: #0d1325;
+  font-size: 11px;
+}
+
+.day strong { display: block; font-size: 17px; margin: 5px 0; }
+.day.active { border-color: var(--blue); background: #152845; }
+.day.completed { border-color: var(--green); }
+.day.rest { color: var(--muted); }
+
+.exercise-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(100,170,255,.1);
+}
+
+.exercise-row:last-child { border-bottom: 0; }
+
+.exercise-row input {
+  width: 76px;
+  background: #080d1b;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.exercise-name { font-weight: 700; }
+.exercise-target { color: var(--muted); font-size: 12px; margin-top: 3px; }
+
+.button-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 10px;
+}
+
+.badge {
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 12px 6px;
+  text-align: center;
+  opacity: .4;
+}
+
+.badge.unlocked {
+  opacity: 1;
+  border-color: #9b76ef;
+  background: #201638;
+}
+
+.badge .emoji { font-size: 25px; display: block; margin-bottom: 6px; }
+.badge strong { font-size: 12px; display: block; }
+.badge small { font-size: 10px; color: var(--muted); }
+
+.history-item {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(100,170,255,.1);
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.history-item:last-child { border-bottom: 0; }
+
+.notice {
+  border-left: 3px solid var(--purple);
+  padding: 11px 13px;
+  background: rgba(168,85,247,.08);
+  border-radius: 5px;
+  color: #d9d4f6;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  padding: 22px;
+}
+
+#toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1d3450;
+  border: 1px solid var(--blue);
+  padding: 12px 18px;
+  border-radius: 12px;
+  z-index: 10;
+  display: none;
+  max-width: 90%;
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  .col-8, .col-6, .col-4 { grid-column: span 12; }
+  .hero { align-items: flex-start; }
+  .level { font-size: 40px; }
+  .day-row { gap: 4px; }
+  .day { padding: 8px 1px; font-size: 10px; }
+  .day strong { font-size: 14px; }
+  .achievement-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  main { padding: 12px 12px 35px; }
+  header { padding: 22px 12px 8px; }
+}
+</style>
+</head>
+
+<body>
 <header>
-  <div><div class="sys">SYSTEM ONLINE • HUNTER INTERFACE</div><h1 class="glow">LEVEL UP</h1></div>
-  <div id="date" class="muted"></div>
+  <!-- Replace this placeholder with your chosen logo later. -->
+  <div class="logo-placeholder" id="logoPlaceholder">LOGO<br>HERE</div>
+
+  <h1>SYSTEM <span>LEVEL UP</span></h1>
+  <div class="subtitle">Your body. Your discipline. Your awakening.</div>
+  <div class="version">HUNTER INTERFACE // TRACKER V3.0</div>
 </header>
 
-<section class="card">
-  <div class="row">
-    <div><div class="mini">PLAYER LEVEL</div><div class="level" id="level">1</div></div>
-    <div class="center"><div class="rank" id="rank">E-RANK</div><div class="muted" id="title">AWAKENED</div></div>
+<main>
+  <div class="grid">
+
+    <section class="card col-8">
+      <h2 class="section-title">Hunter Status</h2>
+      <div class="hero">
+        <div>
+          <div class="muted small">CURRENT LEVEL</div>
+          <div class="level" id="level">1</div>
+          <div class="rank" id="rank">E-RANK HUNTER</div>
+        </div>
+        <div style="text-align:right">
+          <div class="muted small">TOTAL EXPERIENCE</div>
+          <div style="font-size:25px;font-weight:800" id="totalXp">0 XP</div>
+          <div class="muted small" id="nextLevel">100 XP to next level</div>
+        </div>
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-fill" id="xpBar"></div>
+      </div>
+      <div class="muted small" id="xpProgress">0 / 100 XP</div>
+      <div class="button-row">
+        <button id="editName">Set Hunter Name</button>
+        <button id="editXp">Adjust XP</button>
+      </div>
+      <p class="muted small" id="hunterGreeting">Welcome back, Hunter.</p>
+    </section>
+
+    <section class="card col-4">
+      <h2 class="section-title">Hunter Statistics</h2>
+      <div class="stat-grid">
+        <div class="stat">
+          <span class="stat-label">Workouts</span>
+          <strong id="workoutCount">0</strong>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Current Streak</span>
+          <strong id="streak">0 🔥</strong>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Best Streak</span>
+          <strong id="bestStreak">0</strong>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Quests Done</span>
+          <strong id="questsDone">0</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="card col-12">
+      <h2 class="section-title">Weekly Training Schedule</h2>
+      <div class="day-row" id="weekDays"></div>
+      <p class="muted small" id="scheduleDescription"></p>
+    </section>
+
+    <section class="card col-6">
+      <h2 class="section-title">Today's Daily Quests</h2>
+      <div id="dailyQuests"></div>
+      <div class="button-row">
+        <button class="primary" id="completeQuests">Claim Quest XP</button>
+      </div>
+      <p class="muted small">Complete each quest only once per day. Workout XP is separate.</p>
+    </section>
+
+    <section class="card col-6">
+      <h2 class="section-title">Training Mission</h2>
+      <div id="workoutTitle" style="font-size:20px;font-weight:800">Loading...</div>
+      <p class="muted small" id="workoutDescription"></p>
+      <div id="exerciseList"></div>
+      <div class="button-row">
+        <button class="primary" id="completeWorkout">Complete Workout</button>
+        <button id="resetInputs">Reset Inputs</button>
+      </div>
+      <p class="muted small">Enter the reps you actually completed. Keep good form and rest when needed.</p>
+    </section>
+
+    <section class="card col-6">
+      <h2 class="section-title">Hunter Attributes</h2>
+      <div class="stat-grid">
+        <div class="stat"><span class="stat-label">Strength</span><strong id="strength">1</strong></div>
+        <div class="stat"><span class="stat-label">Endurance</span><strong id="endurance">1</strong></div>
+        <div class="stat"><span class="stat-label">Vitality</span><strong id="vitality">1</strong></div>
+        <div class="stat"><span class="stat-label">Consistency</span><strong id="consistency">1</strong></div>
+      </div>
+      <p class="muted small">Attributes rise from completed training. These are game-style indicators, not medical measurements.</p>
+    </section>
+
+    <section class="card col-6">
+      <h2 class="section-title">Weekly Boss Quest</h2>
+      <div style="font-size:21px;font-weight:800">The Discipline Gate</div>
+      <p class="muted small">Complete four training sessions during this Monday–Sunday week to clear the boss quest.</p>
+      <div class="progress-track"><div class="progress-fill" id="bossBar"></div></div>
+      <div class="muted small" id="bossProgress">0 / 4 workouts</div>
+      <p id="bossStatus" style="color:var(--purple);font-weight:800">BOSS ACTIVE</p>
+    </section>
+
+    <section class="card col-6">
+      <h2 class="section-title">Achievements</h2>
+      <div class="achievement-grid" id="achievements"></div>
+    </section>
+
+    <section class="card col-6">
+      <h2 class="section-title">Recent Activity</h2>
+      <div id="history"></div>
+    </section>
+
+    <section class="card col-12">
+      <h2 class="section-title">Save Data & System Settings</h2>
+      <div class="notice">
+        Progress is saved in this browser on this device. Export a backup regularly.
+        Clearing browser data or switching browsers may remove access to your saved progress.
+      </div>
+      <div class="button-row">
+        <button class="primary" id="exportData">Export Backup</button>
+        <button id="importButton">Import Backup</button>
+        <input type="file" id="importFile" accept=".json,application/json" hidden>
+        <button id="resetAll">Reset All Progress</button>
+      </div>
+      <p class="muted small">V3 uses its own save record. Your V2 data is not automatically imported.</p>
+    </section>
+
   </div>
-  <div class="bar"><div class="fill" id="bar"></div></div>
-  <div class="row"><span id="xptext">0 / 500 XP</span><span class="xp" id="earned">+0 today</span></div>
-</section>
-
-<div class="tabs">
-  <button class="tab active" onclick="showTab('quests',this)">QUESTS</button>
-  <button class="tab" onclick="showTab('stats',this)">STATS</button>
-  <button class="tab" onclick="showTab('ach',this)">ACHIEVEMENTS</button>
-</div>
-
-<section id="panel-quests" class="panel active">
-  <section class="card">
-    <div class="row"><b id="questTitle">DAILY QUEST</b><span class="xp" id="questXp">+0 XP</span></div>
-    <p class="muted" id="schedule"></p>
-    <div id="quests"></div>
-    <div id="status" class="notice" style="display:none"></div>
-  </section>
-
-  <section class="card boss">
-    <div class="row"><b>⚔️ WEEKLY BOSS</b><span class="muted" id="bossProgress">0 / 4 workouts</span></div>
-    <p class="muted">Complete 4 workout days this week.</p>
-    <div class="bar"><div class="fill" id="bossBar"></div></div>
-    <div class="row"><span class="record">Reward: +500 XP • +1 stat point</span><span id="bossDone"></span></div>
-  </section>
-
-  <section class="card">
-    <div class="row"><div><b>STREAK</b><div class="big" id="streak">0 🔥</div></div>
-      <button class="btn smallbtn" onclick="resetToday()">Reset Today</button></div>
-  </section>
-</section>
-
-<section id="panel-stats" class="panel">
-  <section class="card"><div class="row"><b>PLAYER STATS</b><span class="muted">permanent</span></div><div class="stats" id="stats"></div></section>
-  <section class="card"><b>RECORDS</b><div id="records" style="margin-top:10px"></div></section>
-</section>
-
-<section id="panel-ach" class="panel">
-  <section class="card"><b>ACHIEVEMENTS</b><div id="achievements"></div></section>
-</section>
-
-<div class="center muted">Daily quests reset at midnight. Permanent progression stays saved on this device.</div>
-<div id="toast" class="toast"></div>
 </main>
+
+<footer>
+  SYSTEM LEVEL UP • TRACKER V3.0 • ARISE, HUNTER.
+</footer>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
 <script>
-const KEY="system_level_up_v2";
-const DAY_MS=86400000;
-const exercises=[
- [{name:"Push-ups",base:20,stat:"strength"},{name:"Pull-ups",base:12,stat:"strength"},{name:"Plank",base:30,unit:"sec",stat:"endurance"}],
- [{name:"Diamond Push-ups",base:10,stat:"strength"},{name:"Squats",base:20,stat:"vitality"},{name:"Plank",base:30,unit:"sec",stat:"endurance"}]
+"use strict";
+
+const STORAGE_KEY = "systemLevelUpTrackerV3";
+
+const DAYS = [
+  { name: "MON", title: "Push + Pull", desc: "Upper-body training", type: "workout",
+    exercises: [
+      { name: "Push-ups", target: "2 sets × 20 reps", reps: 40, key: "pushups" },
+      { name: "Pull-ups", target: "3 sets × 8 reps", reps: 24, key: "pullups" }
+    ]
+  },
+  { name: "TUE", title: "Diamond + Legs", desc: "Triceps, legs and optional core", type: "workout",
+    exercises: [
+      { name: "Diamond push-ups", target: "2 sets × 10 reps", reps: 20, key: "diamond" },
+      { name: "Bodyweight squats", target: "2 sets × 10 reps", reps: 20, key: "squats" },
+      { name: "Plank", target: "Optional · 30 seconds", reps: 30, key: "plank", optional: true }
+    ]
+  },
+  { name: "WED", title: "Recovery Day", desc: "Rest, mobility and adequate nutrition", type: "rest" },
+  { name: "THU", title: "Push + Pull", desc: "Upper-body training", type: "workout",
+    exercises: [
+      { name: "Push-ups", target: "2 sets × 20 reps", reps: 40, key: "pushups" },
+      { name: "Pull-ups", target: "3 sets × 8 reps", reps: 24, key: "pullups" }
+    ]
+  },
+  { name: "FRI", title: "Diamond + Legs", desc: "Triceps, legs and optional core", type: "workout",
+    exercises: [
+      { name: "Diamond push-ups", target: "2 sets × 10 reps", reps: 20, key: "diamond" },
+      { name: "Bodyweight squats", target: "2 sets × 10 reps", reps: 20, key: "squats" },
+      { name: "Plank", target: "Optional · 30 seconds", reps: 30, key: "plank", optional: true }
+    ]
+  },
+  { name: "SAT", title: "Recovery Day", desc: "Rest and recover", type: "rest" },
+  { name: "SUN", title: "Weekly Review", desc: "Review progress and prepare for next week", type: "review" }
 ];
-const achievements=[
- ["First Blood","Complete your first workout",s=>s.workouts>=1],
- ["Awakened","Reach Level 5",s=>s.level>=5],
- ["Hunter","Reach Level 10",s=>s.level>=10],
- ["Iron Will","7-day streak",s=>s.streak>=7],
- ["Elite Hunter","Reach Level 20",s=>s.level>=20],
- ["S-Rank Candidate","Reach Level 40",s=>s.level>=40],
- ["Century","Complete 100 workouts",s=>s.workouts>=100]
+
+const QUESTS = [
+  { id: "training", name: "Complete Today's Mission", desc: "Finish the assigned workout if today is a training day.", xp: 20, workoutOnly: true },
+  { id: "water", name: "Recovery Protocol", desc: "Drink water regularly throughout the day.", xp: 5 },
+  { id: "nutrition", name: "Fuel the Hunter", desc: "Eat balanced meals to support recovery.", xp: 5 },
+  { id: "sleep", name: "Restoration", desc: "Aim for a consistent, sufficient night's sleep.", xp: 5 }
 ];
-let s=JSON.parse(localStorage.getItem(KEY)||"null")||{
- level:1,xp:0,stats:{strength:1,endurance:1,vitality:1,agility:1},streak:0,
- lastCompleted:null,day:null,checks:[],workouts:0,weekStart:null,weekWorkouts:0,
- records:{pushups:0,pullups:0,diamonds:0,squats:0,plank:0}
-};
-function today(){return new Date().toISOString().slice(0,10)}
-function save(){localStorage.setItem(KEY,JSON.stringify(s))}
-function dayIndex(){
- let d=new Date(), base=new Date(2026,9,20);
- let n=Math.floor((new Date(d.getFullYear(),d.getMonth(),d.getDate())-base)/DAY_MS);
- return ((n%6)+6)%6;
+
+const ACHIEVEMENTS = [
+  { id: "first", icon: "⚔️", name: "First Blood", desc: "1 workout", test: s => s.workouts.length >= 1 },
+  { id: "five", icon: "🔥", name: "Getting Stronger", desc: "5 workouts", test: s => s.workouts.length >= 5 },
+  { id: "ten", icon: "👑", name: "Rising Hunter", desc: "10 workouts", test: s => s.workouts.length >= 10 },
+  { id: "twentyfive", icon: "🌑", name: "Shadow Awakened", desc: "25 workouts", test: s => s.workouts.length >= 25 },
+  { id: "streak3", icon: "📅", name: "Consistent", desc: "3-day streak", test: s => s.bestStreak >= 3 },
+  { id: "rankD", icon: "🛡️", name: "D-Rank", desc: "Reach level 5", test: s => levelFor(s.xp) >= 5 }
+];
+
+function freshState() {
+  return {
+    version: 3,
+    name: "Hunter",
+    xp: 0,
+    workouts: [],
+    questClaims: {},
+    bestStreak: 0,
+    attributes: { strength: 1, endurance: 1, vitality: 1, consistency: 1 },
+    history: [],
+    bossClaims: [],
+    createdAt: new Date().toISOString()
+  };
 }
-function isRest(){return dayIndex()===2||dayIndex()===5}
-function type(){return dayIndex()===0||dayIndex()===3?0:1}
-function scale(){return 1+Math.floor((s.level-1)/5)*.25}
-function quests(){return isRest()?[]:exercises[type()].map(x=>({...x,target:Math.max(1,Math.round(x.base*scale()))}))}
-function rank(){return s.level>=40?"S":s.level>=30?"A":s.level>=20?"B":s.level>=10?"C":s.level>=5?"D":"E"}
-function xpNeed(){return 500+(s.level-1)*100}
-function title(){return s.level>=40?"MONARCH":s.level>=30?"SOVEREIGN":s.level>=20?"ELITE HUNTER":s.level>=10?"HUNTER":s.level>=5?"AWAKENED":"UNAWAKENED"}
-function weekKey(){
- let d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()-d.getDay());
- return d.toISOString().slice(0,10)
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return freshState();
+    const parsed = JSON.parse(raw);
+    if (parsed.version !== 3 || !Array.isArray(parsed.workouts)) return freshState();
+    return {
+      ...freshState(),
+      ...parsed,
+      attributes: { ...freshState().attributes, ...(parsed.attributes || {}) },
+      workouts: parsed.workouts,
+      history: Array.isArray(parsed.history) ? parsed.history : [],
+      questClaims: parsed.questClaims || {},
+      bossClaims: Array.isArray(parsed.bossClaims) ? parsed.bossClaims : []
+    };
+  } catch (error) {
+    console.error("Unable to load saved progress", error);
+    return freshState();
+  }
 }
-function initDay(){
- if(s.day!==today()){s.day=today();s.checks=[]}
- let wk=weekKey(); if(s.weekStart!==wk){s.weekStart=wk;s.weekWorkouts=0}
- save()
+
+let state = loadState();
+let toastTimer;
+
+function save() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch (error) {
+    showToast("Could not save data. Export a backup and check browser storage.");
+  }
 }
-function toast(msg){let t=document.getElementById("toast");t.textContent=msg;t.style.display="block";clearTimeout(window.tt);window.tt=setTimeout(()=>t.style.display="none",2200)}
-function render(){
- initDay();
- document.getElementById("date").textContent=new Date().toLocaleDateString(undefined,{day:"2-digit",month:"short"});
- document.getElementById("level").textContent=s.level;document.getElementById("rank").textContent=rank()+"-RANK";document.getElementById("title").textContent=title();
- let need=xpNeed(),pct=Math.min(100,s.xp/need*100);document.getElementById("bar").style.width=pct+"%";
- document.getElementById("xptext").textContent=`${s.xp} / ${need} XP`;
- document.getElementById("streak").textContent=s.streak+" 🔥";
- let status=document.getElementById("status"),qs=document.getElementById("quests");
- if(isRest()){
-  document.getElementById("questTitle").textContent="RECOVERY DAY";document.getElementById("questXp").textContent="+0 XP";
-  document.getElementById("schedule").textContent="2 workout days → 1 rest → 2 workout days → 1 rest.";
-  qs.innerHTML='<div class="center" style="padding:28px">🛌 <b>REST</b><br><span class="muted">Recover. Eat. Sleep. Return stronger.</span></div>';
-  status.style.display="none";
- }else{
-  document.getElementById("questTitle").textContent="DAILY QUEST";
-  document.getElementById("schedule").textContent="2 workout days → 1 rest → 2 workout days → 1 rest.";
-  let q=quests();
-  document.getElementById("questXp").textContent=`+${q.length*100} XP`;
-  qs.innerHTML=q.map((x,i)=>`<label class="quest ${s.checks[i]?'done':''}"><input type="checkbox" ${s.checks[i]?'checked':''} onchange="toggle(${i})"><span>${x.name}: <b>${x.target}${x.unit?' '+x.unit:' reps'}</b></span></label>`).join("");
-  let all=s.checks.length===q.length&&q.every((_,i)=>s.checks[i]);
-  status.style.display=all?"block":"none";if(all)status.textContent="DAILY QUEST COMPLETE — SYSTEM APPROVES. Return tomorrow.";
- }
- document.getElementById("earned").textContent=isRest()?"+0 today":`+${s.checks.filter(Boolean).length*100} today`;
- document.getElementById("stats").innerHTML=Object.entries(s.stats).map(([k,v])=>`<div class="stat"><span class="muted">${k.toUpperCase()}</span><b>${v}</b></div>`).join("");
- document.getElementById("records").innerHTML=`<div class="record">Push-ups: ${s.records.pushups} • Pull-ups: ${s.records.pullups}<br>Diamond Push-ups: ${s.records.diamonds} • Squats: ${s.records.squats}<br>Plank: ${s.records.plank}s</div>`;
- let bp=Math.min(100,s.weekWorkouts/4*100);document.getElementById("bossBar").style.width=bp+"%";document.getElementById("bossProgress").textContent=`${s.weekWorkouts} / 4 workouts`;document.getElementById("bossDone").textContent=s.weekWorkouts>=4?"✓":"";
- document.getElementById("achievements").innerHTML=achievements.map(a=>`<div class="achievement ${a[2](s)?'':'locked'}"><span>${a[2](s)?'🏆':'🔒'} ${a[0]}<br><span class="muted">${a[1]}</span></span><span>${a[2](s)?'UNLOCKED':''}</span></div>`).join("");
+
+function localDate(date = new Date()) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
 }
-function toggle(i){
- let q=quests(); if(!q[i])return;
- if(s.checks[i]){s.checks[i]=false;s.xp=Math.max(0,s.xp-100);s.stats[q[i].stat]=Math.max(1,s.stats[q[i].stat]-1)}
- else{
-  s.checks[i]=true;s.xp+=100;s.stats[q[i].stat]++;
-  let key=q[i].name==="Push-ups"?"pushups":q[i].name==="Pull-ups"?"pullups":q[i].name==="Diamond Push-ups"?"diamonds":q[i].name==="Squats"?"squats":"plank";
-  s.records[key]=Math.max(s.records[key],q[i].target);
- }
- let all=s.checks.length===q.length&&q.every((_,i)=>s.checks[i]);
- if(all && s.lastCompleted!==today()){s.streak++;s.workouts++;s.weekWorkouts++;s.lastCompleted=today();toast("DAILY QUEST COMPLETE • +XP");}
- while(s.xp>=xpNeed()){s.xp-=xpNeed();s.level++;toast("LEVEL UP! ⚔️")}
- if(s.weekWorkouts>=4 && !s.weekReward){s.xp+=500;s.stats.vitality++;s.weekReward=true;toast("WEEKLY BOSS DEFEATED!")}
- save();render()
+
+function dateFromKey(key) {
+  const [y,m,d] = key.split("-").map(Number);
+  return new Date(y, m - 1, d);
 }
-function resetToday(){if(confirm("Reset today's quest progress?")){s.checks=[];save();render()}}
-function showTab(name,el){document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));document.getElementById("panel-"+name).classList.add("active");document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));el.classList.add("active")}
-render();setInterval(()=>{if(s.day!==today())render()},30000);
-</script></body></html>
+
+function mondayKey(date = new Date()) {
+  const copy = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const day = (copy.getDay() + 6) % 7;
+  copy.setDate(copy.getDate() - day);
+  return localDate(copy);
+}
+
+function dayIndex(date = new Date()) {
+  return (date.getDay() + 6) % 7;
+}
+
+function levelFor(xp) {
+  return Math.floor(Math.max(0, xp) / 100) + 1;
+}
+
+function rankFor(level) {
+  if (level >= 30) return "S";
+  if (level >= 20) return "A";
+  if (level >= 12) return "B";
+  if (level >= 8) return "C";
+  if (level >= 5) return "D";
+  return "E";
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, ch => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+  }[ch]));
+}
+
+function showToast(message) {
+  const el = document.getElementById("toast");
+  el.textContent = message;
+  el.style.display = "block";
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.style.display = "none", 2800);
+}
+
+function addHistory(message) {
+  state.history.unshift({
+    date: new Date().toISOString(),
+    message
+  });
+  state.history = state.history.slice(0, 40);
+}
+
+function addXp(amount, reason) {
+  const before = levelFor(state.xp);
+  state.xp = Math.max(0, state.xp + amount);
+  const after = levelFor(state.xp);
+  if (after > before) showToast(`LEVEL UP! You reached Level ${after}.`);
+  else showToast(reason);
+}
+
+function workoutDateSet() {
+  return new Set(state.workouts.map(w => w.date));
+}
+
+function calculateStreak() {
+  const dates = workoutDateSet();
+  let cursor = new Date();
+  let key = localDate(cursor);
+
+  if (!dates.has(key)) {
+    cursor.setDate(cursor.getDate() - 1);
+    key = localDate(cursor);
+    if (!dates.has(key)) return 0;
+  }
+
+  let count = 0;
+  while (dates.has(key)) {
+    count++;
+    cursor.setDate(cursor.getDate() - 1);
+    key = localDate(cursor);
+  }
+  return count;
+}
+
+function weekWorkouts() {
+  const start = mondayKey();
+  const endDate = dateFromKey(start);
+  endDate.setDate(endDate.getDate() + 7);
+  const end = localDate(endDate);
+  return state.workouts.filter(w => w.date >= start && w.date < end);
+}
+
+function renderStatus() {
+  const level = levelFor(state.xp);
+  const currentLevelXp = state.xp % 100;
+  const rank = rankFor(level);
+  const streak = calculateStreak();
+
+  document.getElementById("level").textContent = level;
+  document.getElementById("rank").textContent = `${rank}-RANK HUNTER`;
+  document.getElementById("totalXp").textContent = `${state.xp} XP`;
+  document.getElementById("nextLevel").textContent = `${100-currentLevelXp} XP to next level`;
+  document.getElementById("xpBar").style.width = `${currentLevelXp}%`;
+  document.getElementById("xpProgress").textContent = `${currentLevelXp} / 100 XP`;
+  document.getElementById("hunterGreeting").textContent = `Welcome back, ${state.name}. Your next quest awaits.`;
+  document.getElementById("workoutCount").textContent = state.workouts.length;
+  document.getElementById("streak").textContent = `${streak} 🔥`;
+  document.getElementById("bestStreak").textContent = state.bestStreak;
+  document.getElementById("questsDone").textContent =
+    Object.values(state.questClaims).reduce((sum, arr) => sum + (Array.isArray(arr) ? arr.length : 0), 0);
+
+  document.getElementById("strength").textContent = state.attributes.strength;
+  document.getElementById("endurance").textContent = state.attributes.endurance;
+  document.getElementById("vitality").textContent = state.attributes.vitality;
+  document.getElementById("consistency").textContent = state.attributes.consistency;
+}
+
+function renderSchedule() {
+  const idx = dayIndex();
+  const dates = workoutDateSet();
+  const monday = dateFromKey(mondayKey());
+  const root = document.getElementById("weekDays");
+
+  root.innerHTML = DAYS.map((day, i) => {
+    const d = new Date(monday);
+    d.setDate(d.getDate() + i);
+    const key = localDate(d);
+    const completed = dates.has(key);
+    const cls = [
+      "day",
+      i === idx ? "active" : "",
+      completed ? "completed" : "",
+      day.type === "rest" ? "rest" : ""
+    ].filter(Boolean).join(" ");
+
+    const mark = completed ? "✓" : day.type === "rest" ? "REST" : day.type === "review" ? "★" : "•";
+
+    return `<div class="${cls}">
+      ${day.name}
+      <strong>${mark}</strong>
+      <span>${d.getDate()}/${d.getMonth()+1}</span>
+    </div>`;
+  }).join("");
+
+  document.getElementById("scheduleDescription").textContent =
+    `Today: ${DAYS[idx].title} — ${DAYS[idx].desc}. Completed days are marked with ✓.`;
+}
+
+function renderQuests() {
+  const today = localDate();
+  const claimed = state.questClaims[today] || [];
+  const idx = dayIndex();
+  const trainingToday = DAYS[idx].type === "workout";
+
+  document.getElementById("dailyQuests").innerHTML = QUESTS.map(q => {
+    const unavailable = q.workoutOnly && !trainingToday;
+    const checked = claimed.includes(q.id);
+    const disabled = checked || unavailable;
+
+    return `<div class="quest ${checked ? "done" : ""}">
+      <input type="checkbox" id="quest-${q.id}" ${checked ? "checked" : ""} ${disabled ? "disabled" : ""}>
+      <label for="quest-${q.id}">
+        <div class="quest-name">${escapeHtml(q.name)}</div>
+        <div class="quest-desc">${unavailable ? "Available on scheduled training days." : escapeHtml(q.desc)}</div>
+      </label>
+      <span class="xp-tag">+${q.xp} XP</span>
+    </div>`;
+  }).join("");
+}
+
+function renderWorkout() {
+  const idx = dayIndex();
+  const day = DAYS[idx];
+  const alreadyDone = state.workouts.some(w => w.date === localDate());
+
+  document.getElementById("workoutTitle").textContent = day.title;
+  document.getElementById("workoutDescription").textContent = day.desc;
+
+  const list = document.getElementById("exerciseList");
+  const completeButton = document.getElementById("completeWorkout");
+
+  if (day.type !== "workout") {
+    list.innerHTML = `<div class="notice">${day.type === "rest"
+      ? "Recovery is part of progress. Rest, eat well and get enough sleep."
+      : "Review your weekly history, check your progress and prepare for the next training week."}</div>`;
+    completeButton.disabled = true;
+    completeButton.textContent = "No Workout Scheduled";
+    return;
+  }
+
+  list.innerHTML = day.exercises.map(ex => `
+    <div class="exercise-row">
+      <div>
+        <div class="exercise-name">${escapeHtml(ex.name)} ${ex.optional ? "(Optional)" : ""}</div>
+        <div class="exercise-target">${escapeHtml(ex.target)}</div>
+      </div>
+      <input type="number" min="0" max="1000" step="1"
+        id="reps-${ex.key}" value="${ex.reps}" aria-label="${escapeHtml(ex.name)} completed reps">
+    </div>
+  `).join("");
+
+  completeButton.disabled = alreadyDone;
+  completeButton.textContent = alreadyDone ? "Today's Workout Completed ✓" : "Complete Workout";
+}
+
+function renderBoss() {
+  const completed = weekWorkouts().length;
+  const claimed = state.bossClaims.includes(mondayKey());
+  document.getElementById("bossBar").style.width = `${Math.min(100, completed / 4 * 100)}%`;
+  document.getElementById("bossProgress").textContent = `${Math.min(completed,4)} / 4 workouts`;
+  document.getElementById("bossStatus").textContent =
+    claimed ? "BOSS DEFEATED ✓" : completed >= 4 ? "BOSS READY TO CLAIM" : "BOSS ACTIVE";
+  document.getElementById("bossStatus").style.color = claimed ? "var(--green)" : "var(--purple)";
+
+  if (completed >= 4 && !claimed) {
+    state.bossClaims.push(mondayKey());
+    addXp(50, "Weekly Boss defeated! +50 XP");
+    addHistory("Weekly Boss Quest completed (+50 XP)");
+    save();
+  }
+}
+
+function renderAchievements() {
+  document.getElementById("achievements").innerHTML = ACHIEVEMENTS.map(a => {
+    const unlocked = a.test(state);
+    return `<div class="badge ${unlocked ? "unlocked" : ""}">
+      <span class="emoji">${a.icon}</span>
+      <strong>${escapeHtml(a.name)}</strong>
+      <small>${escapeHtml(a.desc)}</small>
+      <small>${unlocked ? "UNLOCKED" : "LOCKED"}</small>
+    </div>`;
+  }).join("");
+}
+
+function renderHistory() {
+  const root = document.getElementById("history");
+  if (!state.history.length) {
+    root.innerHTML = '<p class="muted small">No activity yet. Complete your first mission to begin your history.</p>';
+    return;
+  }
+
+  root.innerHTML = state.history.slice(0,8).map(item => {
+    const date = new Date(item.date);
+    return `<div class="history-item">
+      <span>${escapeHtml(item.message)}</span>
+      <span class="muted">${date.toLocaleDateString()}</span>
+    </div>`;
+  }).join("");
+}
+
+function renderAll() {
+  renderStatus();
+  renderSchedule();
+  renderQuests();
+  renderWorkout();
+  renderBoss();
+  renderAchievements();
+  renderHistory();
+}
+
+document.getElementById("completeQuests").addEventListener("click", () => {
+  const today = localDate();
+  const already = state.questClaims[today] || [];
+  const idx = dayIndex();
+  const trainingToday = DAYS[idx].type === "workout";
+  const chosen = QUESTS.filter(q => {
+    const el = document.getElementById(`quest-${q.id}`);
+    return el && el.checked && !already.includes(q.id) && (!q.workoutOnly || trainingToday);
+  });
+
+  if (!chosen.length) {
+    showToast("Select an available quest first.");
+    return;
+  }
+
+  const ids = chosen.map(q => q.id);
+  state.questClaims[today] = [...already, ...ids];
+  const earned = chosen.reduce((sum,q) => sum + q.xp, 0);
+  state.xp += earned;
+  addHistory(`Daily quests claimed (+${earned} XP)`);
+  save();
+  renderAll();
+  showToast(`Quest rewards claimed: +${earned} XP`);
+});
+
+document.getElementById("completeWorkout").addEventListener("click", () => {
+  const idx = dayIndex();
+  const day = DAYS[idx];
+  if (day.type !== "workout") return;
+
+  const today = localDate();
+  if (state.workouts.some(w => w.date === today)) {
+    showToast("Today's workout has already been recorded.");
+    return;
+  }
+
+  const exercises = day.exercises.map(ex => {
+    const input = document.getElementById(`reps-${ex.key}`);
+    const value = Number(input ? input.value : 0);
+    return { name: ex.name, key: ex.key, reps: Number.isFinite(value) ? Math.max(0, Math.min(1000, Math.floor(value))) : 0, optional: !!ex.optional };
+  });
+
+  if (exercises.some(ex => !ex.optional && ex.reps <= 0)) {
+    showToast("Enter the reps you completed for each required exercise.");
+    return;
+  }
+
+  const earned = 40;
+  const record = {
+    date: today,
+    title: day.title,
+    exercises,
+    xp: earned,
+    timestamp: new Date().toISOString()
+  };
+
+  state.workouts.push(record);
+  state.xp += earned;
+  state.attributes.consistency += 1;
+  if (exercises.some(e => e.key === "pushups" || e.key === "diamond")) state.attributes.strength += 1;
+  if (exercises.some(e => e.key === "pullups")) state.attributes.endurance += 1;
+  if (exercises.some(e => e.key === "squats" || e.key === "plank")) state.attributes.vitality += 1;
+
+  const streak = calculateStreak();
+  state.bestStreak = Math.max(state.bestStreak, streak);
+  addHistory(`${day.title} completed (+${earned} XP)`);
+  save();
+  renderAll();
+  showToast(`Workout complete! +${earned} XP. ARISE!`);
+});
+
+document.getElementById("resetInputs").addEventListener("click", () => {
+  renderWorkout();
+  showToast("Workout inputs reset.");
+});
+
+document.getElementById("editName").addEventListener("click", () => {
+  const name = prompt("Enter your Hunter name:", state.name);
+  if (name === null) return;
+  const cleaned = name.trim().slice(0,40);
+  if (!cleaned) {
+    showToast("Hunter name cannot be empty.");
+    return;
+  }
+  state.name = cleaned;
+  save();
+  renderAll();
+});
+
+document.getElementById("editXp").addEventListener("click", () => {
+  const input = prompt("Enter the XP adjustment (e.g. 50 or -20):", "50");
+  if (input === null) return;
+  const amount = Number(input);
+  if (!Number.isInteger(amount) || !Number.isFinite(amount) || amount < -100000 || amount > 100000) {
+    showToast("Enter a whole number between -100000 and 100000.");
+    return;
+  }
+  state.xp = Math.max(0, state.xp + amount);
+  addHistory(`XP adjusted (${amount >= 0 ? "+" : ""}${amount} XP)`);
+  save();
+  renderAll();
+  showToast("XP updated.");
+});
+
+document.getElementById("exportData").addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `system-level-up-backup-${localDate()}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  showToast("Backup exported.");
+});
+
+document.getElementById("importButton").addEventListener("click", () => {
+  document.getElementById("importFile").click();
+});
+
+document.getElementById("importFile").addEventListener("change", async event => {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+
+  try {
+    const parsed = JSON.parse(await file.text());
+    if (parsed.version !== 3 || !Array.isArray(parsed.workouts) || typeof parsed.xp !== "number") {
+      throw new Error("This is not a valid V3 backup.");
+    }
+
+    if (!confirm("Import this backup and replace your current V3 progress? Export your current data first if needed.")) return;
+
+    state = {
+      ...freshState(),
+      ...parsed,
+      attributes: { ...freshState().attributes, ...(parsed.attributes || {}) },
+      workouts: parsed.workouts,
+      history: Array.isArray(parsed.history) ? parsed.history : [],
+      questClaims: parsed.questClaims || {},
+      bossClaims: Array.isArray(parsed.bossClaims) ? parsed.bossClaims : []
+    };
+
+    save();
+    renderAll();
+    showToast("Backup imported successfully.");
+  } catch (error) {
+    alert("Could not import backup: " + error.message);
+  } finally {
+    event.target.value = "";
+  }
+});
+
+document.getElementById("resetAll").addEventListener("click", () => {
+  const answer = prompt('This will erase V3 progress in this browser. Type RESET to confirm:');
+  if (answer !== "RESET") {
+    showToast("Reset cancelled.");
+    return;
+  }
+  state = freshState();
+  save();
+  renderAll();
+  showToast("V3 progress reset.");
+});
+
+renderAll();
+save();
+</script>
+</body>
+</html>
+```
