@@ -1,0 +1,9 @@
+{
+  "name": "SYSTEM: LEVEL UP",
+  "short_name": "LEVEL UP",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#050812",
+  "theme_color": "#070b14",
+  "icons": []
+}
